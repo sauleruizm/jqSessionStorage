@@ -4,33 +4,31 @@
  */
 (function($){
     
-    $.fn.SStorage = function(){
-        /** Utlizada para administrar el sessionStorage. */
+    var ss = sessionStorage;
+    
+    $.fn.ssGet = function(key){ 
         
-        var session = sessionStorage;
+        if (key) {
+            return ss.getItem(key);
+        }
+        return ss.getItem(this.Id); };
+    
+    $.fn.ssSet = function (key, value) { 
         
-        this.get = function(key){ 
-            /** get a single object */
-            return session.getItem(key); };
-        
-        this.set = function(key,value){ 
-            /* Set the value  */
-           session.setItem(key,value);
-        };
-        
-        this.del = function(key){ 
-            /** Delete an specific key of SessionStorage */
-            session.removeItem(key); 
-        };
-        
-        this.clear = function() { 
-            /** Clear whole values of sessionStorage. */
-            session.clear(); 
-        };
-        
-        
-        
-        
+        if (key) {
+            ss.setItem(key,value);
+            return;
+        }
+        ss.setItem(this.Id,this.val()); };
+    
+    $.fn.ssDel = function (key) {  
+        if (key) {
+            ss.removeItem(key);
+            return;
+        }
+        ss.removeItem(this.Id); 
     };
+    
+    $.fn.ssClear = function () { ss.clear(); };
     
 }( jQuery ));
